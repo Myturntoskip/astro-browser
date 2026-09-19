@@ -1,8 +1,10 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-// SOLUÇÃO PARA O GLITCH: Desativa a aceleração por hardware da GPU antes do app iniciar
-app.disableHardwareAcceleration();
+// DETEÇÃO DE SISTEMA: Só desativa a aceleração por hardware se for Linux (Ubuntu)
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration();
+}
 
 let mainWindow;
 
@@ -17,12 +19,17 @@ function createWindow() {
     }
   });
 
+  // Abre sempre em ecrã inteiro maximizado
+  mainWindow.maximize();
+
   mainWindow.loadFile('index.html');
 }
 
 app.whenReady().then(() => {
-  // CONFIGURAÇÃO EXTRA ANTI-GLITCH: Ignora a lista negra de GPUs do Chromium
-  app.commandLine.appendSwitch('ignore-gpu-blocklist');
+  // Ajuste extra para Linux
+  if (process.platform === 'linux') {
+    app.commandLine.appendSwitch('ignore-gpu-blocklist');
+  }
   
   createWindow();
 
