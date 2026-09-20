@@ -88,9 +88,9 @@
       <button id="reload-btn" class="btn">&#x21BB;</button>
       <input type="text" id="url-input" value="" placeholder="Digite o URL ou pesquise no Google...">
       <button id="go-btn" class="btn" style="background: #007acc; color: white;">Ir</button>
-      <button id="theme-btn" class="btn" title="Alternar Tema">&#9788;</button>
-      <button id="fav-btn" class="btn" title="Adicionar aos Favoritos">&#9734;</button>
-      <button id="menu-btn" class="btn" title="Histórico e Favoritos">&#9776;</button>
+      <button id="theme-btn" class="btn" title="Alternar Tema">☼</button>
+      <button id="fav-btn" class="btn" title="Adicionar aos Favoritos">☆</button>
+      <button id="menu-btn" class="btn" title="Histórico e Favoritos">☰</button>
     </div>
     <div class="webviews-container" id="webviews-container"></div>
   </div>
@@ -125,23 +125,24 @@
     let activeTabId = null;
 
     let currentTheme = localStorage.getItem('astro_theme') || 'dark';
-    if (currentTheme === 'light') { document.body.classList.add('light-mode'); themeBtn.innerHTML = '&#9790;'; }
+    if (currentTheme === 'light') { document.body.classList.add('light-mode'); themeBtn.innerHTML = '☾'; }
     themeBtn.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
-      if (document.body.classList.contains('light-mode')) { localStorage.setItem('astro_theme', 'light'); themeBtn.innerHTML = '&#9790;'; }
-      else { localStorage.setItem('astro_theme', 'dark'); themeBtn.innerHTML = '&#9788;'; }
+      if (document.body.classList.contains('light-mode')) { localStorage.setItem('astro_theme', 'light'); themeBtn.innerHTML = '☾'; }
+      else { localStorage.setItem('astro_theme', 'dark'); themeBtn.innerHTML = '☼'; }
     });
 
     function processUrl(input) {
       let query = input.trim();
       if (!query) return `file://${__dirname}/newtab.html`;
-      if (query.includes('.') && !query.includes(' ') && !query.startsWith('http')) {
-        return 'https://' + query;
-      } else if (query.startsWith('http://') || query.startsWith('https://') || query.startsWith('localhost')) {
+      
+      if (query.startsWith('http://') || query.startsWith('https://')) {
         return query;
-      } else {
-        return 'https://google.com' + encodeURIComponent(query);
       }
+      if (query.includes('.') && !query.includes(' ')) {
+        return 'https://' + query;
+      }
+      return 'https://google.com/search?q=' + encodeURIComponent(query);
     }
 
     function navigate() {
@@ -199,8 +200,8 @@
       try {
         backBtn.disabled = !wv.canGoBack(); forwardBtn.disabled = !wv.canGoForward();
         const currentUrl = wv.getURL();
-        if (bookmarks.includes(currentUrl) && !currentUrl.includes('newtab.html')) { favBtn.innerHTML = '&#9733;'; favBtn.style.color = '#ffcc00'; }
-        else { favBtn.innerHTML = '&#9734;'; favBtn.style.color = ''; }
+        if (bookmarks.includes(currentUrl) && !currentUrl.includes('newtab.html')) { favBtn.innerHTML = '★'; favBtn.style.color = '#ffcc00'; }
+        else { favBtn.innerHTML = '☆'; favBtn.style.color = ''; }
       } catch(e) {}
     }
 
