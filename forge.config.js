@@ -1,7 +1,7 @@
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: './icon' // O Forge escolhe .ico, .png ou .icns automaticamente conforme o sistema
+    // Removido a linha do ícone genérico para evitar erros na nuvem
   },
   rebuildConfig: {},
   makers: [
@@ -9,16 +9,11 @@ module.exports = {
       name: '@electron-forge/maker-squirrel', // Windows
       config: {
         name: 'astro_browser',
-        setupIcon: './icon.ico'
       },
     },
     {
       name: '@electron-forge/maker-deb', // Linux/Ubuntu
-      config: {
-        options: {
-          icon: './icon.png'
-        }
-      },
+      config: {}, // Removido o bloco que exigia obrigatoriamente o icon.png
     },
     {
       name: '@electron-forge/maker-dmg', // macOS
