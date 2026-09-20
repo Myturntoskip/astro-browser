@@ -14,7 +14,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        # Abre três servidores independentes (Windows, Linux e Mac) na nuvem
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout do código
@@ -33,3 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run publish
+
