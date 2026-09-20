@@ -22,13 +22,12 @@ module.exports = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: 'Myturntoskip',
-          name: 'astro-browser'
+          owner: 'Myturntoskip',      
+          name: 'astro-browser'       
         },
         prerelease: false,
-        draft: true,
+        draft: true, 
       },
     },
   ],
-};
 
