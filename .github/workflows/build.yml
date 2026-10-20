@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        # Abre três servidores independentes (Windows, Linux e Mac) na nuvem
+        # Ativa os três sistemas operativos em simultâneo na nuvem do GitHub
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
